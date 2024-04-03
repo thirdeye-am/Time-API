@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Time API</title>
+</head>
+<body>
+  <pre id="time-data"></pre>
+
+    <script>
+        function getTime() {
+            const timeZone = "Asia/Kolkata";
+            const apiUrl = new Date().toLocaleString("en-US", { timeZone: timeZone });
+            const timeData = {
+                "year": apiUrl.slice(0, 4),
+                "month": parseInt(apiUrl.slice(5, 7)) - 1, // Months are 0-indexed
+                "day": apiUrl.slice(8, 10),
+                "hour": apiUrl.slice(11, 13),
+                "minute": apiUrl.slice(14, 16),
+                "seconds": apiUrl.slice(17, 19),
+                "milliSeconds": apiUrl.slice(20),
+                "dateTime": apiUrl,
+                "date": apiUrl.slice(5, 10).replace(/-/g, "/"),
+                "time": apiUrl.slice(11, 16),
+                "timeZone": timeZone,
+                "dayOfWeek": new Date(apiUrl).toLocaleDateString("en-US", { weekday: 'long' }),
+                "dstActive": false // Assuming DST is not active in Asia/Kolkata
+            };
+            document.getElementById("time-data").textContent = JSON.stringify(timeData, null, 2);
+        }
+
+        getTime();
+    </script>
+
+</body>
+</html>
